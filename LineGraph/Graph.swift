@@ -8,6 +8,26 @@
 
 import UIKit
 
+typealias GraphPoints = [(CGFloat, CGFloat)]
+
+struct GraphData {
+
+    let minX: CGFloat
+    let minY: CGFloat
+    let maxX: CGFloat
+    let maxY: CGFloat
+}
+
+struct LineData {
+
+    var points: GraphPoints
+    let color: UIColor
+}
+
+protocol GraphTouchDelegate: AnyObject {
+    func dragged(at point: CGPoint)
+}
+
 /**
  Main graph view
  - Parameters:
@@ -35,9 +55,9 @@ class Graph: UIView {
         self.graph = graph
         super.init(frame: .zero)
 
-        constrain(view: view)
+        backgroundColor = .clear
 
-        backgroundColor = .white
+        constrain(view: view)
     }
 
     required init?(coder: NSCoder) {
@@ -51,7 +71,8 @@ class Graph: UIView {
             widthAnchor.constraint(equalToConstant: width),
             heightAnchor.constraint(equalToConstant: height)
         ])
-        TouchOverlay(in: self, height: self.height)
+        let overlay = TouchOverlay(in: self, height: self.height)
+        overlay.delegate = self
     }
 
     override func draw(_ rect: CGRect) {
@@ -86,6 +107,7 @@ class Graph: UIView {
                 path.addLine(to: CGPoint(x: points[index].0 * scaleX, y: zeroY - (points[index].1 * scaleY)))
             }
             line.color.set()
+            path.lineWidth = 2
             path.stroke()
         }
     }
@@ -100,11 +122,32 @@ class Graph: UIView {
     }
 }
 
+extension Graph: GraphTouchDelegate {
+    func dragged(at point: CGPoint) {
+
+        let dataWidth = graph.maxX - graph.minX
+        let scaleX = width / dataWidth
+
+        let x = point.x
+
+        let dataX = x / scaleX
+
+        for line in lines {
+            let closestDataPoint = line.points.min { abs($0.0 - dataX) < abs($1.0 - dataX) }
+
+            print("\(closestDataPoint?.0 ?? 0.0), \(closestDataPoint?.1 ?? 0.0)")
+        }
+
+    }
+}
+
 /// Overlaid view to receive touch events for Graph
 /// - Note: Prevents redrawing entire graph during drag events
 class TouchOverlay: UIView {
 
     private let height: CGFloat
+
+    weak var delegate: GraphTouchDelegate?
 
     // position of vertical draggable line, no line if nil
     var tapPoint: CGFloat? {
@@ -113,7 +156,6 @@ class TouchOverlay: UIView {
         }
     }
 
-    @discardableResult
     init(in view: UIView, height: CGFloat) {
         self.height = height
         super.init(frame: .zero)
@@ -150,6 +192,7 @@ class TouchOverlay: UIView {
             tapPoint = nil
         } else {
             tapPoint = point.x
+            delegate?.dragged(at: point)
         }
     }
 
@@ -163,7 +206,7 @@ class TouchOverlay: UIView {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: xValue, y: 0))
         path.addLine(to: CGPoint(x: xValue, y: height))
-        UIColor.black.set()
+        UIColor.gray.set()
         path.stroke()
     }
 }

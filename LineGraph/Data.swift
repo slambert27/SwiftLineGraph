@@ -8,22 +8,6 @@
 
 import UIKit
 
-typealias GraphPoints = [(CGFloat, CGFloat)]
-
-struct GraphData {
-
-    let minX: CGFloat
-    let minY: CGFloat
-    let maxX: CGFloat
-    let maxY: CGFloat
-}
-
-struct LineData {
-
-    var points: GraphPoints
-    let color: UIColor
-}
-
 enum Data {
 
     static let points: GraphPoints = [(0, -10), (2, -17), (3, -14), (5, -15), (6, -14), (8, -16), (9, -9),
