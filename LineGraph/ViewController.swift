@@ -58,8 +58,6 @@ class Graph: UIView {
         }
     }
 
-    var tapPoint: CGFloat?
-
     init(in view: UIView, width: CGFloat, height: CGFloat, graph: GraphData) {
         self.width = width
         self.height = height
@@ -69,9 +67,6 @@ class Graph: UIView {
         constrain(view: view)
 
         backgroundColor = .white
-
-        let panRecognizer = GraphDragGesture(target: self, action: #selector(didTapGraph))
-        addGestureRecognizer(panRecognizer)
     }
 
     required init?(coder: NSCoder) {
@@ -85,6 +80,7 @@ class Graph: UIView {
             widthAnchor.constraint(equalToConstant: width),
             heightAnchor.constraint(equalToConstant: height)
         ])
+        TouchOverlay(in: self, height: self.height)
     }
 
     override func draw(_ rect: CGRect) {
@@ -118,10 +114,6 @@ class Graph: UIView {
             line.color.set()
             path.stroke()
         }
-
-        if let tap = tapPoint {
-            drawVPath(at: tap)
-        }
     }
 
     private func drawHPath(at yValue: CGFloat) {
@@ -132,13 +124,36 @@ class Graph: UIView {
         path.setLineDash([2, 2], count: 2, phase: 0)
         path.stroke()
     }
+}
 
-    private func drawVPath(at xValue: CGFloat) {
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: xValue, y: 0))
-        path.addLine(to: CGPoint(x: xValue, y: height))
-        UIColor.black.set()
-        path.stroke()
+
+class TouchOverlay: UIView {
+
+    let height: CGFloat
+    var tapPoint: CGFloat?
+
+    @discardableResult
+    init(in view: UIView, height: CGFloat) {
+        self.height = height
+        super.init(frame: .zero)
+
+        backgroundColor = .clear
+
+        let panRecognizer = GraphDragGesture(target: self, action: #selector(didTapGraph))
+        addGestureRecognizer(panRecognizer)
+
+        view.addSubview(self)
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topAnchor.constraint(equalTo: view.topAnchor),
+            leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     @objc
@@ -153,6 +168,20 @@ class Graph: UIView {
             tapPoint = point.x
             setNeedsDisplay()
         }
+    }
+
+    override func draw(_ rect: CGRect) {
+        if let tap = tapPoint {
+            drawVPath(at: tap)
+        }
+    }
+
+    private func drawVPath(at xValue: CGFloat) {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: xValue, y: 0))
+        path.addLine(to: CGPoint(x: xValue, y: height))
+        UIColor.black.set()
+        path.stroke()
     }
 }
 
