@@ -8,22 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		AC83D0DB23652609008BC383 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D0DA23652609008BC383 /* AppDelegate.swift */; };
-		AC83D0DD23652609008BC383 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D0DC23652609008BC383 /* SceneDelegate.swift */; };
 		AC83D0DF23652609008BC383 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D0DE23652609008BC383 /* ViewController.swift */; };
 		AC83D0E223652609008BC383 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC83D0E023652609008BC383 /* Main.storyboard */; };
 		AC83D0E42365260D008BC383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC83D0E32365260D008BC383 /* Assets.xcassets */; };
 		AC83D0E72365260D008BC383 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC83D0E52365260D008BC383 /* LaunchScreen.storyboard */; };
+		AC83D0EF23652AD2008BC383 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D0EE23652AD2008BC383 /* Data.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AC83D0D723652609008BC383 /* LineGraph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LineGraph.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC83D0DA23652609008BC383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AC83D0DC23652609008BC383 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AC83D0DE23652609008BC383 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AC83D0E123652609008BC383 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AC83D0E32365260D008BC383 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC83D0E62365260D008BC383 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC83D0E82365260D008BC383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC83D0EE23652AD2008BC383 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +57,8 @@
 			isa = PBXGroup;
 			children = (
 				AC83D0DA23652609008BC383 /* AppDelegate.swift */,
-				AC83D0DC23652609008BC383 /* SceneDelegate.swift */,
 				AC83D0DE23652609008BC383 /* ViewController.swift */,
+				AC83D0EE23652AD2008BC383 /* Data.swift */,
 				AC83D0E023652609008BC383 /* Main.storyboard */,
 				AC83D0E32365260D008BC383 /* Assets.xcassets */,
 				AC83D0E52365260D008BC383 /* LaunchScreen.storyboard */,
@@ -139,8 +139,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC83D0DF23652609008BC383 /* ViewController.swift in Sources */,
+				AC83D0EF23652AD2008BC383 /* Data.swift in Sources */,
 				AC83D0DB23652609008BC383 /* AppDelegate.swift in Sources */,
-				AC83D0DD23652609008BC383 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +216,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
