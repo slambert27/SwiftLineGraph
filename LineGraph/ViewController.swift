@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let touchLabel = UILabel()
+
     var data = GraphData(minX: CGFloat(Data.minX),
                          minY: CGFloat(Data.minY),
                          maxX: CGFloat(Data.maxX),
@@ -20,11 +22,21 @@ class ViewController: UIViewController {
 
         view.backgroundColor = .white
 
-        let graph = Graph(in: view, width: UIScreen.main.bounds.width - 50, height: 200, graph: data)
+        let graph = Graph(graph: data)
+        graph.translatesAutoresizingMaskIntoConstraints = false
+        graph.delegate = self
+
+        view.addSubview(graph)
+        view.addSubview(touchLabel)
+        touchLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
+            graph.heightAnchor.constraint(equalToConstant: 200),
+            graph.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 50),
             graph.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            graph.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            graph.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            touchLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            touchLabel.bottomAnchor.constraint(equalTo: graph.topAnchor, constant: -15)
         ])
 
         graph.lines.append(LineData(points: Data.points, color: .blue))
@@ -32,5 +44,24 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
             graph.lines.append(LineData(points: Data.points2, color: .red))
         })
+    }
+}
+
+extension ViewController: GraphDelegate {
+    func didTouch(at points: GraphPoints) {
+        touchLabel.numberOfLines = points.count
+
+        var text = ""
+        for index in 0..<points.count {
+            text.append("\(points[index].0), \(points[index].1)")
+            if index < points.count - 1 {
+                text.append("\n")
+            }
+        }
+        touchLabel.text = text
+    }
+
+    func didStopTouching() {
+        touchLabel.text = nil
     }
 }

@@ -25,7 +25,25 @@ struct LineData {
 }
 
 protocol GraphTouchDelegate: AnyObject {
-    func dragged(at point: CGPoint)
+    func dragged(in rect: CGRect, at point: CGPoint)
+
+    func stoppedDragging()
+}
+
+protocol GraphDelegate: AnyObject {
+
+    /// after a touch or drag event by user, returns the dataPoint nearest to the touch for each line in graph
+    func didTouch(at points: GraphPoints)
+
+    /// user has is no longer interacting with graph
+    func didStopTouching()
+}
+
+extension GraphDelegate {
+
+    func didTouch(at points: GraphPoints) {}
+
+    func didStopTouching() {}
 }
 
 /**
@@ -38,8 +56,7 @@ protocol GraphTouchDelegate: AnyObject {
  */
 class Graph: UIView {
 
-    private let width: CGFloat
-    private let height: CGFloat
+    weak var delegate: GraphDelegate?
 
     private let graph: GraphData
 
@@ -49,30 +66,30 @@ class Graph: UIView {
         }
     }
 
-    init(in view: UIView, width: CGFloat, height: CGFloat, graph: GraphData) {
-        self.width = width
-        self.height = height
+    init(graph: GraphData) {
         self.graph = graph
         super.init(frame: .zero)
-
-        backgroundColor = .clear
-
-        constrain(view: view)
+        setup()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func constrain(view: UIView) {
-        view.addSubview(self)
-        translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            widthAnchor.constraint(equalToConstant: width),
-            heightAnchor.constraint(equalToConstant: height)
-        ])
-        let overlay = TouchOverlay(in: self, height: self.height)
+    func setup() {
+        backgroundColor = .clear
+
+        let overlay = TouchOverlay()
         overlay.delegate = self
+
+        addSubview(overlay)
+        overlay.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            overlay.topAnchor.constraint(equalTo: topAnchor),
+            overlay.leadingAnchor.constraint(equalTo: leadingAnchor),
+            overlay.trailingAnchor.constraint(equalTo: trailingAnchor),
+            overlay.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 
     override func draw(_ rect: CGRect) {
@@ -82,16 +99,16 @@ class Graph: UIView {
         let dataWidth = graph.maxX - graph.minX
 
         // data to screen scale ex. 5 means 5 screen pixels for each data point
-        let scaleY = height / dataHeight
-        let scaleX = width / dataWidth
+        let scaleY = rect.height / dataHeight
+        let scaleX = rect.width / dataWidth
 
         // screen point at which y = 0
         let zeroY: CGFloat = graph.maxY * scaleY
 
         // draw horizontal lines at min and max y values and 0 y value
-        drawHPath(at: zeroY)
-        drawHPath(at: 0 + 0.5)
-        drawHPath(at: height - 0.5)
+        drawHPath(in: rect, at: zeroY)
+        drawHPath(in: rect, at: 0 + 0.5)
+        drawHPath(in: rect, at: rect.height - 0.5)
 
         // draw each line
         // line is the full plot for a single data set
@@ -112,10 +129,10 @@ class Graph: UIView {
         }
     }
 
-    private func drawHPath(at yValue: CGFloat) {
+    private func drawHPath(in rect: CGRect, at yValue: CGFloat) {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: yValue))
-        path.addLine(to: CGPoint(x: width, y: yValue))
+        path.addLine(to: CGPoint(x: rect.width, y: yValue))
         UIColor.lightGray.set()
         path.setLineDash([2, 2], count: 2, phase: 0)
         path.stroke()
@@ -123,21 +140,30 @@ class Graph: UIView {
 }
 
 extension Graph: GraphTouchDelegate {
-    func dragged(at point: CGPoint) {
+    func dragged(in rect: CGRect, at point: CGPoint) {
 
         let dataWidth = graph.maxX - graph.minX
-        let scaleX = width / dataWidth
+        let scaleX = rect.width / dataWidth
 
         let x = point.x
 
         let dataX = x / scaleX
 
+        var points: GraphPoints = []
+
         for line in lines {
             let closestDataPoint = line.points.min { abs($0.0 - dataX) < abs($1.0 - dataX) }
 
-            print("\(closestDataPoint?.0 ?? 0.0), \(closestDataPoint?.1 ?? 0.0)")
+            if let point = closestDataPoint {
+                points.append(point)
+            }
         }
 
+        delegate?.didTouch(at: points)
+    }
+
+    func stoppedDragging() {
+        delegate?.didStopTouching()
     }
 }
 
@@ -145,24 +171,19 @@ extension Graph: GraphTouchDelegate {
 /// - Note: Prevents redrawing entire graph during drag events
 class TouchOverlay: UIView {
 
-    private let height: CGFloat
-
     weak var delegate: GraphTouchDelegate?
 
     // position of vertical draggable line, no line if nil
-    var tapPoint: CGFloat? {
+    var tapPoint: CGPoint? {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    init(in view: UIView, height: CGFloat) {
-        self.height = height
+    init() {
         super.init(frame: .zero)
 
         backgroundColor = .clear
-
-        constrain(view: view)
 
         let panRecognizer = GraphDragGesture(target: self, action: #selector(didTapGraph))
         addGestureRecognizer(panRecognizer)
@@ -172,17 +193,6 @@ class TouchOverlay: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func constrain(view: UIView) {
-        view.addSubview(self)
-        translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: view.topAnchor),
-            leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-
     @objc
     private func didTapGraph(_ gesture: UITapGestureRecognizer) {
 
@@ -190,22 +200,23 @@ class TouchOverlay: UIView {
 
         if gesture.state == .ended {
             tapPoint = nil
+            delegate?.stoppedDragging()
         } else {
-            tapPoint = point.x
-            delegate?.dragged(at: point)
+            tapPoint = point
         }
     }
 
     override func draw(_ rect: CGRect) {
         if let tap = tapPoint {
-            drawVPath(at: tap)
+            drawVPath(in: rect, at: tap.x)
+            delegate?.dragged(in: rect, at: tap)
         }
     }
 
-    private func drawVPath(at xValue: CGFloat) {
+    private func drawVPath(in rect: CGRect, at xValue: CGFloat) {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: xValue, y: 0))
-        path.addLine(to: CGPoint(x: xValue, y: height))
+        path.addLine(to: CGPoint(x: xValue, y: rect.height))
         UIColor.gray.set()
         path.stroke()
     }
