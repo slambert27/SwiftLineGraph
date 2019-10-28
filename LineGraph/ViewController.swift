@@ -7,15 +7,14 @@
 //
 
 import UIKit
+import Grapher
 
 class ViewController: UIViewController {
 
     let touchLabel = UILabel()
 
-    var data = GraphData(minX: CGFloat(Data.minX),
-                         minY: CGFloat(Data.minY),
-                         maxX: CGFloat(Data.maxX),
-                         maxY: CGFloat(Data.maxY))
+    var data = GraphData(xRange: Data.minX...Data.maxX,
+                         yRange: Data.minY...Data.maxY)
 
     override func viewDidLoad() {
         super.viewDidLoad()

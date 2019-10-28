@@ -8,44 +8,6 @@
 
 import UIKit
 
-typealias GraphPoints = [(CGFloat, CGFloat)]
-
-struct GraphData {
-
-    let minX: CGFloat
-    let minY: CGFloat
-    let maxX: CGFloat
-    let maxY: CGFloat
-}
-
-struct LineData {
-
-    var points: GraphPoints
-    let color: UIColor
-}
-
-protocol GraphTouchDelegate: AnyObject {
-    func dragged(in rect: CGRect, at point: CGPoint)
-
-    func stoppedDragging()
-}
-
-protocol GraphDelegate: AnyObject {
-
-    /// after a touch or drag event by user, returns the dataPoint nearest to the touch for each line in graph
-    func didTouch(at points: GraphPoints)
-
-    /// user has is no longer interacting with graph
-    func didStopTouching()
-}
-
-extension GraphDelegate {
-
-    func didTouch(at points: GraphPoints) {}
-
-    func didStopTouching() {}
-}
-
 /**
  Main graph view
  - Parameters:
@@ -54,19 +16,19 @@ extension GraphDelegate {
     - height: the desired height of this view
  - Note: view will add itself to superview and constrain width and height
  */
-class Graph: UIView {
+public class Graph: UIView {
 
-    weak var delegate: GraphDelegate?
+    public weak var delegate: GraphDelegate?
 
     private let graph: GraphData
 
-    var lines: [LineData] = [] {
+    public var lines: [LineData] = [] {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    init(graph: GraphData) {
+    public init(graph: GraphData) {
         self.graph = graph
         super.init(frame: .zero)
         setup()
@@ -76,7 +38,7 @@ class Graph: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setup() {
+    private func setup() {
         backgroundColor = .clear
 
         let overlay = TouchOverlay()
@@ -92,7 +54,7 @@ class Graph: UIView {
         ])
     }
 
-    override func draw(_ rect: CGRect) {
+    override public func draw(_ rect: CGRect) {
 
         // data height in each axis
         let dataHeight = graph.maxY - graph.minY
@@ -164,69 +126,5 @@ extension Graph: GraphTouchDelegate {
 
     func stoppedDragging() {
         delegate?.didStopTouching()
-    }
-}
-
-/// Overlaid view to receive touch events for Graph
-/// - Note: Prevents redrawing entire graph during drag events
-class TouchOverlay: UIView {
-
-    weak var delegate: GraphTouchDelegate?
-
-    // position of vertical draggable line, no line if nil
-    var tapPoint: CGPoint? {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-
-    init() {
-        super.init(frame: .zero)
-
-        backgroundColor = .clear
-
-        let panRecognizer = GraphDragGesture(target: self, action: #selector(didTapGraph))
-        addGestureRecognizer(panRecognizer)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    @objc
-    private func didTapGraph(_ gesture: UITapGestureRecognizer) {
-
-        let point = gesture.location(in: self)
-
-        if gesture.state == .ended {
-            tapPoint = nil
-            delegate?.stoppedDragging()
-        } else {
-            tapPoint = point
-        }
-    }
-
-    override func draw(_ rect: CGRect) {
-        if let tap = tapPoint {
-            drawVPath(in: rect, at: tap.x)
-            delegate?.dragged(in: rect, at: tap)
-        }
-    }
-
-    private func drawVPath(in rect: CGRect, at xValue: CGFloat) {
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: xValue, y: 0))
-        path.addLine(to: CGPoint(x: xValue, y: rect.height))
-        UIColor.gray.set()
-        path.stroke()
-    }
-}
-
-/// Custom pan gesture to ensure event begins on inital touch
-class GraphDragGesture: UIPanGestureRecognizer {
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
-        super.touchesBegan(touches, with: event)
-        state = .began
     }
 }

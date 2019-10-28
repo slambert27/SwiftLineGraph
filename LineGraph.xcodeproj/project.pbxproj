@@ -13,8 +13,54 @@
 		AC83D0E42365260D008BC383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC83D0E32365260D008BC383 /* Assets.xcassets */; };
 		AC83D0E72365260D008BC383 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC83D0E52365260D008BC383 /* LaunchScreen.storyboard */; };
 		AC83D0EF23652AD2008BC383 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D0EE23652AD2008BC383 /* Data.swift */; };
-		AC83D0F12365641E008BC383 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D0F02365641E008BC383 /* Graph.swift */; };
+		AC83D100236689FE008BC383 /* Grapher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC83D0F7236689FE008BC383 /* Grapher.framework */; };
+		AC83D107236689FF008BC383 /* GrapherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D106236689FF008BC383 /* GrapherTests.swift */; };
+		AC83D109236689FF008BC383 /* Grapher.h in Headers */ = {isa = PBXBuildFile; fileRef = AC83D0F9236689FE008BC383 /* Grapher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC83D10C236689FF008BC383 /* Grapher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC83D0F7236689FE008BC383 /* Grapher.framework */; };
+		AC83D10E236689FF008BC383 /* Grapher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC83D0F7236689FE008BC383 /* Grapher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AC83D11523668AD6008BC383 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D0F02365641E008BC383 /* Graph.swift */; };
+		AC83D11923668B12008BC383 /* GraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11823668B12008BC383 /* GraphDelegate.swift */; };
+		AC83D11B23668B53008BC383 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11A23668B53008BC383 /* GraphData.swift */; };
+		AC83D11D23668DDB008BC383 /* TouchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11C23668DDB008BC383 /* TouchOverlay.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AC83D101236689FE008BC383 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC83D0CF23652609008BC383 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC83D0F6236689FE008BC383;
+			remoteInfo = Grapher;
+		};
+		AC83D103236689FE008BC383 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC83D0CF23652609008BC383 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC83D0D623652609008BC383;
+			remoteInfo = LineGraph;
+		};
+		AC83D10A236689FF008BC383 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC83D0CF23652609008BC383 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC83D0F6236689FE008BC383;
+			remoteInfo = Grapher;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AC83D10D236689FF008BC383 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AC83D10E236689FF008BC383 /* Grapher.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AC83D0D723652609008BC383 /* LineGraph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LineGraph.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +72,15 @@
 		AC83D0E82365260D008BC383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC83D0EE23652AD2008BC383 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		AC83D0F02365641E008BC383 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		AC83D0F7236689FE008BC383 /* Grapher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Grapher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC83D0F9236689FE008BC383 /* Grapher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grapher.h; sourceTree = "<group>"; };
+		AC83D0FA236689FE008BC383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC83D0FF236689FE008BC383 /* GrapherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrapherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC83D106236689FF008BC383 /* GrapherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrapherTests.swift; sourceTree = "<group>"; };
+		AC83D108236689FF008BC383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC83D11823668B12008BC383 /* GraphDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDelegate.swift; sourceTree = "<group>"; };
+		AC83D11A23668B53008BC383 /* GraphData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
+		AC83D11C23668DDB008BC383 /* TouchOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +88,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC83D10C236689FF008BC383 /* Grapher.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC83D0F4236689FE008BC383 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC83D0FC236689FE008BC383 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC83D100236689FE008BC383 /* Grapher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				AC83D0D923652609008BC383 /* LineGraph */,
+				AC83D0F8236689FE008BC383 /* Grapher */,
+				AC83D105236689FF008BC383 /* GrapherTests */,
 				AC83D0D823652609008BC383 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				AC83D0D723652609008BC383 /* LineGraph.app */,
+				AC83D0F7236689FE008BC383 /* Grapher.framework */,
+				AC83D0FF236689FE008BC383 /* GrapherTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,7 +135,6 @@
 			children = (
 				AC83D0DA23652609008BC383 /* AppDelegate.swift */,
 				AC83D0DE23652609008BC383 /* ViewController.swift */,
-				AC83D0F02365641E008BC383 /* Graph.swift */,
 				AC83D0EE23652AD2008BC383 /* Data.swift */,
 				AC83D0E023652609008BC383 /* Main.storyboard */,
 				AC83D0E32365260D008BC383 /* Assets.xcassets */,
@@ -70,7 +144,56 @@
 			path = LineGraph;
 			sourceTree = "<group>";
 		};
+		AC83D0F8236689FE008BC383 /* Grapher */ = {
+			isa = PBXGroup;
+			children = (
+				AC83D0F02365641E008BC383 /* Graph.swift */,
+				AC83D11C23668DDB008BC383 /* TouchOverlay.swift */,
+				AC83D11723668B06008BC383 /* Data */,
+				AC83D11623668AEA008BC383 /* Protocols */,
+				AC83D0F9236689FE008BC383 /* Grapher.h */,
+				AC83D0FA236689FE008BC383 /* Info.plist */,
+			);
+			path = Grapher;
+			sourceTree = "<group>";
+		};
+		AC83D105236689FF008BC383 /* GrapherTests */ = {
+			isa = PBXGroup;
+			children = (
+				AC83D106236689FF008BC383 /* GrapherTests.swift */,
+				AC83D108236689FF008BC383 /* Info.plist */,
+			);
+			path = GrapherTests;
+			sourceTree = "<group>";
+		};
+		AC83D11623668AEA008BC383 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AC83D11823668B12008BC383 /* GraphDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		AC83D11723668B06008BC383 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				AC83D11A23668B53008BC383 /* GraphData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AC83D0F2236689FE008BC383 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC83D109236689FF008BC383 /* Grapher.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		AC83D0D623652609008BC383 /* LineGraph */ = {
@@ -80,15 +203,54 @@
 				AC83D0D323652609008BC383 /* Sources */,
 				AC83D0D423652609008BC383 /* Frameworks */,
 				AC83D0D523652609008BC383 /* Resources */,
+				AC83D10D236689FF008BC383 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AC83D10B236689FF008BC383 /* PBXTargetDependency */,
 			);
 			name = LineGraph;
 			productName = LineGraph;
 			productReference = AC83D0D723652609008BC383 /* LineGraph.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AC83D0F6236689FE008BC383 /* Grapher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC83D113236689FF008BC383 /* Build configuration list for PBXNativeTarget "Grapher" */;
+			buildPhases = (
+				AC83D0F2236689FE008BC383 /* Headers */,
+				AC83D0F3236689FE008BC383 /* Sources */,
+				AC83D0F4236689FE008BC383 /* Frameworks */,
+				AC83D0F5236689FE008BC383 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Grapher;
+			productName = Grapher;
+			productReference = AC83D0F7236689FE008BC383 /* Grapher.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AC83D0FE236689FE008BC383 /* GrapherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC83D114236689FF008BC383 /* Build configuration list for PBXNativeTarget "GrapherTests" */;
+			buildPhases = (
+				AC83D0FB236689FE008BC383 /* Sources */,
+				AC83D0FC236689FE008BC383 /* Frameworks */,
+				AC83D0FD236689FE008BC383 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC83D102236689FE008BC383 /* PBXTargetDependency */,
+				AC83D104236689FE008BC383 /* PBXTargetDependency */,
+			);
+			name = GrapherTests;
+			productName = GrapherTests;
+			productReference = AC83D0FF236689FE008BC383 /* GrapherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -102,6 +264,13 @@
 				TargetAttributes = {
 					AC83D0D623652609008BC383 = {
 						CreatedOnToolsVersion = 11.0;
+					};
+					AC83D0F6236689FE008BC383 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					AC83D0FE236689FE008BC383 = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = AC83D0D623652609008BC383;
 					};
 				};
 			};
@@ -119,6 +288,8 @@
 			projectRoot = "";
 			targets = (
 				AC83D0D623652609008BC383 /* LineGraph */,
+				AC83D0F6236689FE008BC383 /* Grapher */,
+				AC83D0FE236689FE008BC383 /* GrapherTests */,
 			);
 		};
 /* End PBXProject section */
@@ -134,6 +305,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AC83D0F5236689FE008BC383 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC83D0FD236689FE008BC383 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -141,14 +326,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC83D0F12365641E008BC383 /* Graph.swift in Sources */,
 				AC83D0DF23652609008BC383 /* ViewController.swift in Sources */,
 				AC83D0EF23652AD2008BC383 /* Data.swift in Sources */,
 				AC83D0DB23652609008BC383 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AC83D0F3236689FE008BC383 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC83D11523668AD6008BC383 /* Graph.swift in Sources */,
+				AC83D11D23668DDB008BC383 /* TouchOverlay.swift in Sources */,
+				AC83D11B23668B53008BC383 /* GraphData.swift in Sources */,
+				AC83D11923668B12008BC383 /* GraphDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC83D0FB236689FE008BC383 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC83D107236689FF008BC383 /* GrapherTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AC83D102236689FE008BC383 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC83D0F6236689FE008BC383 /* Grapher */;
+			targetProxy = AC83D101236689FE008BC383 /* PBXContainerItemProxy */;
+		};
+		AC83D104236689FE008BC383 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC83D0D623652609008BC383 /* LineGraph */;
+			targetProxy = AC83D103236689FE008BC383 /* PBXContainerItemProxy */;
+		};
+		AC83D10B236689FF008BC383 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC83D0F6236689FE008BC383 /* Grapher */;
+			targetProxy = AC83D10A236689FF008BC383 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AC83D0E023652609008BC383 /* Main.storyboard */ = {
@@ -287,6 +508,7 @@
 		AC83D0EC2365260D008BC383 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R6W75B57H5;
@@ -305,6 +527,7 @@
 		AC83D0ED2365260D008BC383 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R6W75B57H5;
@@ -317,6 +540,104 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AC83D10F236689FF008BC383 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = R6W75B57H5;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Grapher/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lambert.sam.Grapher;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AC83D110236689FF008BC383 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = R6W75B57H5;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Grapher/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lambert.sam.Grapher;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AC83D111236689FF008BC383 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R6W75B57H5;
+				INFOPLIST_FILE = GrapherTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lambert.sam.GrapherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LineGraph.app/LineGraph";
+			};
+			name = Debug;
+		};
+		AC83D112236689FF008BC383 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = R6W75B57H5;
+				INFOPLIST_FILE = GrapherTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lambert.sam.GrapherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LineGraph.app/LineGraph";
 			};
 			name = Release;
 		};
@@ -337,6 +658,24 @@
 			buildConfigurations = (
 				AC83D0EC2365260D008BC383 /* Debug */,
 				AC83D0ED2365260D008BC383 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC83D113236689FF008BC383 /* Build configuration list for PBXNativeTarget "Grapher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC83D10F236689FF008BC383 /* Debug */,
+				AC83D110236689FF008BC383 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC83D114236689FF008BC383 /* Build configuration list for PBXNativeTarget "GrapherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC83D111236689FF008BC383 /* Debug */,
+				AC83D112236689FF008BC383 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

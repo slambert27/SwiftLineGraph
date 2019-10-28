@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Grapher
 
 enum Data {
 
