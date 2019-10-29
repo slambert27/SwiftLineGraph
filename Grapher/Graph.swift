@@ -20,7 +20,7 @@ public class Graph: UIView {
 
     public weak var delegate: GraphDelegate?
 
-    private let graph: GraphData
+    public var graph: GraphData?
 
     public var lines: [LineData] = [] {
         didSet {
@@ -28,14 +28,14 @@ public class Graph: UIView {
         }
     }
 
-    public init(graph: GraphData) {
-        self.graph = graph
+    public init() {
         super.init(frame: .zero)
         setup()
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setup()
     }
 
     private func setup() {
@@ -55,6 +55,8 @@ public class Graph: UIView {
     }
 
     override public func draw(_ rect: CGRect) {
+
+        guard let graph = graph else { return }
 
         // data height in each axis
         let dataHeight = graph.maxY - graph.minY
@@ -103,6 +105,8 @@ public class Graph: UIView {
 
 extension Graph: GraphTouchDelegate {
     func dragged(in rect: CGRect, at point: CGPoint) {
+
+        guard let graph = graph else { return }
 
         let dataWidth = graph.maxX - graph.minX
         let scaleX = rect.width / dataWidth

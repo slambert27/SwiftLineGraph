@@ -9,9 +9,10 @@
 import UIKit
 import Grapher
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, StoryboardLoadable {
 
-    let touchLabel = UILabel()
+    @IBOutlet weak var graph: Graph!
+    @IBOutlet weak var touchLabel: UILabel!
 
     var data = GraphData(xRange: Data.minX...Data.maxX,
                          yRange: Data.minY...Data.maxY)
@@ -19,29 +20,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
-
-        let graph = Graph(graph: data)
-        graph.translatesAutoresizingMaskIntoConstraints = false
         graph.delegate = self
-
-        view.addSubview(graph)
-        view.addSubview(touchLabel)
-        touchLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            graph.heightAnchor.constraint(equalToConstant: 200),
-            graph.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 50),
-            graph.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            graph.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            touchLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
-            touchLabel.bottomAnchor.constraint(equalTo: graph.topAnchor, constant: -15)
-        ])
+        graph.graph = data
 
         graph.lines.append(LineData(points: Data.points, color: .blue))
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-            graph.lines.append(LineData(points: Data.points2, color: .red))
+            self.graph.lines.append(LineData(points: Data.points2, color: .red))
         })
     }
 }

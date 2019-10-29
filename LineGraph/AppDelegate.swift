@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        window?.rootViewController = ViewController(nibName: nil, bundle: nil)
+        window?.rootViewController = ViewController.loadFromStoryboard()
         window?.makeKeyAndVisible()
 
         return true
@@ -43,5 +43,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+}
+
+public protocol StoryboardLoadable {
+    static var storyboardName: String { get }
+}
+
+// This implementation of StoryboardLoadable assumes the convention that
+//   the UIViewController subclass adopting this protocol has a storyboard
+//   file with the same name as the UIViewController subclass.
+//
+// For example,
+//     "class MyViewController: UIViewController, StoryBoardLoadable {}"
+//   should have a corresponding "MyViewController.storyboard" file.
+//
+// The storyboard file should contain a prototype of the UIViewController
+//   subclass, and it should be set as the "Initial View Controller".
+public extension StoryboardLoadable where Self: UIViewController {
+    static var storyboardName: String {
+        return String(describing: Self.self)
+    }
+
+    static var storyboard: UIStoryboard {
+        let bundle = Bundle(for: Self.self)
+        return UIStoryboard(name: storyboardName, bundle: bundle)
+    }
+
+    static func loadFromStoryboard() -> Self {
+        guard let viewController = storyboard.instantiateInitialViewController() as? Self else {
+            fatalError("Error loading \(self) from storyboard")
+        }
+        return viewController
     }
 }
