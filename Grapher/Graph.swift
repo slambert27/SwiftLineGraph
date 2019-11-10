@@ -87,9 +87,25 @@ public class Graph: UIView {
             for index in 1..<points.count {
                 path.addLine(to: CGPoint(x: points[index].0 * scaleX, y: zeroY - (points[index].1 * scaleY)))
             }
-            line.color.set()
-            path.lineWidth = 2
-            path.stroke()
+
+            let halfMask = CAShapeLayer()
+            halfMask.frame = CGRect(x: 0, y: 0, width: rect.width, height: rect.height / 2)
+            halfMask.masksToBounds = true
+            halfMask.path = path.cgPath
+
+            halfMask.fillColor = nil
+            halfMask.strokeColor = line.secondaryColor?.cgColor ?? line.primaryColor.cgColor
+            halfMask.lineWidth = 2
+
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+
+            mask.fillColor = nil
+            mask.strokeColor = line.primaryColor.cgColor
+            mask.lineWidth = 2
+
+            self.layer.insertSublayer(mask, at: 0)
+            self.layer.insertSublayer(halfMask, at: 1)
         }
     }
 

@@ -28,10 +28,12 @@ public struct GraphData {
 public struct LineData {
 
     var points: GraphPoints
-    let color: UIColor
+    let primaryColor: UIColor
+    let secondaryColor: UIColor?
 
-    public init(points: GraphPoints, color: UIColor) {
+    public init(points: GraphPoints, primaryColor: UIColor, secondaryColor: UIColor? = nil) {
         self.points = points
-        self.color = color
+        self.primaryColor = primaryColor
+        self.secondaryColor = secondaryColor
     }
 }

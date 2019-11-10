@@ -23,11 +23,17 @@ class ViewController: UIViewController, StoryboardLoadable {
         graph.delegate = self
         graph.graph = data
 
-        graph.lines.append(LineData(points: Data.points, color: .blue))
+        graph.lines.append(LineData(points: Data.points, primaryColor: .blue, secondaryColor: .purple))
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-            self.graph.lines.append(LineData(points: Data.points2, color: .red))
+            self.graph.lines.append(LineData(points: Data.points2, primaryColor: .red, secondaryColor: .magenta))
         })
+    }
+
+    // for screen size changes like device rotation
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        graph.setNeedsDisplay()
     }
 }
 
