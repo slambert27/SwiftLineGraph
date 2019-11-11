@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol GraphTouchDelegate: AnyObject {
+internal protocol GraphTouchDelegate: AnyObject {
     func dragged(in rect: CGRect, at point: CGPoint)
 
     func stoppedDragging()
 }
 
 /// Overlaid view to receive touch events for Graph
-/// - Note: Prevents redrawing entire graph during drag events
-class TouchOverlay: UIView {
+/// - Prevents redrawing entire graph during drag events
+internal class TouchOverlay: UIView {
 
     weak var delegate: GraphTouchDelegate?
 

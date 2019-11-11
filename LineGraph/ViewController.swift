@@ -13,7 +13,8 @@ class ViewController: UIViewController, StoryboardLoadable {
 
     @IBOutlet weak var graph: Graph!
     @IBOutlet weak var touchLabel: UILabel!
-
+    @IBOutlet weak var touchLabelLeading: NSLayoutConstraint!
+    
     var data = GraphData(xRange: Data.minX...Data.maxX,
                          yRange: Data.minY...Data.maxY)
 
@@ -38,7 +39,7 @@ class ViewController: UIViewController, StoryboardLoadable {
 }
 
 extension ViewController: GraphDelegate {
-    func didTouch(at points: GraphPoints) {
+    func didTouch(at points: GraphPoints, position: CGPoint) {
         touchLabel.numberOfLines = points.count
 
         var text = ""
@@ -49,9 +50,20 @@ extension ViewController: GraphDelegate {
             }
         }
         touchLabel.text = text
+
+        let x = position.x
+        touchLabelLeading.isActive = false
+        touchLabelLeading = touchLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                                constant: 25 + x)
+        touchLabelLeading.isActive = true
     }
 
     func didStopTouching() {
+
         touchLabel.text = nil
+        touchLabelLeading.isActive = false
+        touchLabelLeading = touchLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                                constant: 25)
+        touchLabelLeading.isActive = true
     }
 }

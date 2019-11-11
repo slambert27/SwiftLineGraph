@@ -8,15 +8,27 @@
 
 import UIKit
 
-/**
- Main graph view
- - Parameters:
-    - view: the superview to which this view will be added
-    - width: the desired width of this view
-    - height: the desired height of this view
- - Note: view will add itself to superview and constrain width and height
- */
+/// Graph that can be added
 public class Graph: UIView {
+
+    // MARK: - public style settings
+
+    /// A Boolean indicating whether to display horizontal lines at key y-values
+    public var showDividerLines = true
+
+    /// A Boolean value indicating whether drag gesture interaction is enabled to view values over time
+    public var enableDragging = true {
+        didSet {
+            if enableDragging {
+                setupTouch()
+            } else {
+                overlay?.removeFromSuperview()
+                overlay = nil
+            }
+        }
+    }
+
+    // MARK: - public data settings
 
     public weak var delegate: GraphDelegate?
 
@@ -28,20 +40,24 @@ public class Graph: UIView {
         }
     }
 
+    private var overlay: TouchOverlay?
+
     public init() {
         super.init(frame: .zero)
-        setup()
+        backgroundColor = .clear
+        setupTouch()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
+        backgroundColor = .clear
+        setupTouch()
     }
 
-    private func setup() {
-        backgroundColor = .clear
+    private func setupTouch() {
+        overlay = TouchOverlay()
+        guard let overlay = overlay else { return }
 
-        let overlay = TouchOverlay()
         overlay.delegate = self
 
         addSubview(overlay)
@@ -52,6 +68,15 @@ public class Graph: UIView {
             overlay.trailingAnchor.constraint(equalTo: trailingAnchor),
             overlay.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+
+    private func drawHPath(in rect: CGRect, at yValue: CGFloat) {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: yValue))
+        path.addLine(to: CGPoint(x: rect.width, y: yValue))
+        UIColor.lightGray.set()
+        path.setLineDash([2, 2], count: 2, phase: 0)
+        path.stroke()
     }
 
     override public func draw(_ rect: CGRect) {
@@ -70,9 +95,11 @@ public class Graph: UIView {
         let zeroY: CGFloat = graph.maxY * scaleY
 
         // draw horizontal lines at min and max y values and 0 y value
-        drawHPath(in: rect, at: zeroY)
-        drawHPath(in: rect, at: 0 + 0.5)
-        drawHPath(in: rect, at: rect.height - 0.5)
+        if showDividerLines {
+            drawHPath(in: rect, at: zeroY)
+            drawHPath(in: rect, at: 0 + 0.5)
+            drawHPath(in: rect, at: rect.height - 0.5)
+        }
 
         // draw each line
         // line is the full plot for a single data set
@@ -108,15 +135,6 @@ public class Graph: UIView {
             self.layer.insertSublayer(halfMask, at: 1)
         }
     }
-
-    private func drawHPath(in rect: CGRect, at yValue: CGFloat) {
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0, y: yValue))
-        path.addLine(to: CGPoint(x: rect.width, y: yValue))
-        UIColor.lightGray.set()
-        path.setLineDash([2, 2], count: 2, phase: 0)
-        path.stroke()
-    }
 }
 
 extension Graph: GraphTouchDelegate {
@@ -141,7 +159,7 @@ extension Graph: GraphTouchDelegate {
             }
         }
 
-        delegate?.didTouch(at: points)
+        delegate?.didTouch(at: points, position: point)
     }
 
     func stoppedDragging() {

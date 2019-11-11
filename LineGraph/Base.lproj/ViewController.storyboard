@@ -24,7 +24,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtz-JW-FDG">
-                                <rect key="frame" x="25" y="333" width="182" height="0.0"/>
+                                <rect key="frame" x="25" y="333" width="389" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -34,7 +34,7 @@
                         <constraints>
                             <constraint firstItem="Ins-rt-TPo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="9ci-k0-nEq"/>
                             <constraint firstItem="Ins-rt-TPo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="JV9-di-M82"/>
-                            <constraint firstItem="wtz-JW-FDG" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Umc-mC-oUV"/>
+                            <constraint firstItem="wtz-JW-FDG" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Umc-mC-oUV"/>
                             <constraint firstItem="Ins-rt-TPo" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" constant="-25" id="VcM-PB-oda"/>
                             <constraint firstItem="wtz-JW-FDG" firstAttribute="bottom" secondItem="Ins-rt-TPo" secondAttribute="top" constant="-15" id="fgi-Nx-zgQ"/>
                             <constraint firstItem="wtz-JW-FDG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="sSd-F0-gW0"/>
@@ -44,6 +44,7 @@
                     <connections>
                         <outlet property="graph" destination="Ins-rt-TPo" id="osR-cT-NLW"/>
                         <outlet property="touchLabel" destination="wtz-JW-FDG" id="f33-hn-mg5"/>
+                        <outlet property="touchLabelLeading" destination="sSd-F0-gW0" id="wgn-Vg-f87"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
