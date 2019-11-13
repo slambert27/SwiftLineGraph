@@ -17,14 +17,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ins-rt-TPo" customClass="Graph" customModule="Grapher">
-                                <rect key="frame" x="25" y="348" width="364" height="200"/>
+                                <rect key="frame" x="25" y="198" width="364" height="200"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="k3C-Rj-Nmh"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtz-JW-FDG">
-                                <rect key="frame" x="25" y="333" width="389" height="0.0"/>
+                                <rect key="frame" x="25" y="183" width="389" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fo2-Il-BZm" customClass="Graph" customModule="Grapher">
+                                <rect key="frame" x="25" y="548" width="364" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="NSB-Sh-9RT"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9Z-QL-Ecb">
+                                <rect key="frame" x="25" y="533" width="389" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -33,17 +46,25 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Ins-rt-TPo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="9ci-k0-nEq"/>
-                            <constraint firstItem="Ins-rt-TPo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="JV9-di-M82"/>
+                            <constraint firstItem="S9Z-QL-Ecb" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Gru-kw-Djx"/>
+                            <constraint firstItem="Ins-rt-TPo" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-50" id="JV9-di-M82"/>
+                            <constraint firstItem="Fo2-Il-BZm" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" constant="-25" id="PTu-pT-PEI"/>
+                            <constraint firstItem="S9Z-QL-Ecb" firstAttribute="bottom" secondItem="Fo2-Il-BZm" secondAttribute="top" constant="-15" id="PuL-hT-yFk"/>
+                            <constraint firstItem="S9Z-QL-Ecb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="Qiz-sE-9bj"/>
+                            <constraint firstItem="Fo2-Il-BZm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="UDV-IB-HHK"/>
                             <constraint firstItem="wtz-JW-FDG" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Umc-mC-oUV"/>
                             <constraint firstItem="Ins-rt-TPo" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" constant="-25" id="VcM-PB-oda"/>
                             <constraint firstItem="wtz-JW-FDG" firstAttribute="bottom" secondItem="Ins-rt-TPo" secondAttribute="top" constant="-15" id="fgi-Nx-zgQ"/>
+                            <constraint firstItem="Fo2-Il-BZm" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="100" id="raQ-4M-H9U"/>
                             <constraint firstItem="wtz-JW-FDG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="25" id="sSd-F0-gW0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="graph" destination="Ins-rt-TPo" id="osR-cT-NLW"/>
+                        <outlet property="graph2" destination="Fo2-Il-BZm" id="sxh-CJ-r3y"/>
                         <outlet property="touchLabel" destination="wtz-JW-FDG" id="f33-hn-mg5"/>
+                        <outlet property="touchLabel2" destination="S9Z-QL-Ecb" id="0Va-QL-e7P"/>
                         <outlet property="touchLabelLeading" destination="sSd-F0-gW0" id="wgn-Vg-f87"/>
                     </connections>
                 </viewController>

@@ -14,6 +14,9 @@ class ViewController: UIViewController, StoryboardLoadable {
     @IBOutlet weak var graph: Graph!
     @IBOutlet weak var touchLabel: UILabel!
     @IBOutlet weak var touchLabelLeading: NSLayoutConstraint!
+
+    @IBOutlet weak var graph2: Graph!
+    @IBOutlet weak var touchLabel2: UILabel!
     
     var data = GraphData(xRange: Data.minX...Data.maxX,
                          yRange: Data.minY...Data.maxY)
@@ -21,20 +24,41 @@ class ViewController: UIViewController, StoryboardLoadable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        graph2.enableDragging = false
+        graph2.showDividerLines = false
+        graph2.graph = data
+        graph2.lines.append(LineData(points: Data.points, primaryColor: .black))
+
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapGraph2))
+        graph2.addGestureRecognizer(gesture)
+
         graph.delegate = self
         graph.graph = data
 
-        graph.lines.append(LineData(points: Data.points, primaryColor: .blue, secondaryColor: .purple))
+        var graphPoints = Data.points2
+        graph.lines.append(LineData(points: graphPoints, primaryColor: .blue, secondaryColor: .red))
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-            self.graph.lines.append(LineData(points: Data.points2, primaryColor: .red, secondaryColor: .magenta))
-        })
+        var count = Data.points2[Data.points2.count - 1].0
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
+            count += 1
+            graphPoints += [(CGFloat(count), CGFloat((-10...10).randomElement() ?? 0))]
+            self.graph.lines[0] = LineData(points: graphPoints, primaryColor: .blue, secondaryColor: .red)
+
+            if count == 60 {
+                timer.invalidate()
+            }
+        }
     }
 
     // for screen size changes like device rotation
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         graph.setNeedsDisplay()
+    }
+
+    @objc
+    func didTapGraph2() {
+        graph2.lines.append(LineData(points: Data.points2, primaryColor: .green))
     }
 }
 
