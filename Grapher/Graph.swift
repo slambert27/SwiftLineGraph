@@ -150,12 +150,19 @@ public class Graph: UIView {
                 self.layer.addSublayer(halfMask)
             }
         }
+        // TODO: clean out sublayers
+    }
+
+    /// Set color of the draggable tracking line
+    public func setTrackerColor(_ color: UIColor) {
+        overlay?.lineColor = color
     }
 }
 
 // MARK: - GraphTouchDelegate
 
 extension Graph: GraphTouchDelegate {
+    
     func dragged(in rect: CGRect, at point: CGPoint) {
 
         guard let graph = graph else { return }

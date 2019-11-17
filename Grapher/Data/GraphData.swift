@@ -27,7 +27,7 @@ public struct GraphData {
 
 public struct LineData {
 
-    var points: GraphPoints
+    public var points: GraphPoints
     let primaryColor: UIColor
     let secondaryColor: UIColor?
 

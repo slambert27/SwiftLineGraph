@@ -23,6 +23,7 @@ class ViewController: UIViewController, StoryboardLoadable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // graph 2 - 2 lines, tap to add second
         graph2.enableDragging = false
         graph2.dividerColor = .clear
         graph2.graph = data
@@ -31,17 +32,17 @@ class ViewController: UIViewController, StoryboardLoadable {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapGraph2))
         graph2.addGestureRecognizer(gesture)
 
+        // graph 1 - 1 line, 2 colors, delegate for touch interaction, updating points
         graph.delegate = self
         graph.graph = data
 
-        var graphPoints = Data.points2
-        graph.lines.append(LineData(points: graphPoints, primaryColor: .blue, secondaryColor: .red))
+        graph.lines.append(LineData(points: Data.points2, primaryColor: .blue, secondaryColor: .red))
 
         var count = Data.points2[Data.points2.count - 1].0
         Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
             count += 1
-            graphPoints += [(CGFloat(count), CGFloat((-10...10).randomElement() ?? 0))]
-            self.graph.lines[0] = LineData(points: graphPoints, primaryColor: .blue, secondaryColor: .red)
+
+            self.graph.lines[0].points.append((CGFloat(count), CGFloat((-10...10).randomElement() ?? 0)))
 
             if count == 60 {
                 timer.invalidate()
@@ -53,6 +54,7 @@ class ViewController: UIViewController, StoryboardLoadable {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         graph.setNeedsDisplay()
+        graph2.setNeedsDisplay()
     }
 
     @objc

@@ -27,6 +27,8 @@ internal class TouchOverlay: UIView {
         }
     }
 
+    var lineColor: UIColor = .gray
+
     init() {
         super.init(frame: .zero)
 
@@ -64,7 +66,7 @@ internal class TouchOverlay: UIView {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: xValue, y: 0))
         path.addLine(to: CGPoint(x: xValue, y: rect.height))
-        UIColor.gray.set()
+        lineColor.set()
         path.stroke()
     }
 }
