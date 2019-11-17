@@ -36,13 +36,33 @@ class ViewController: UIViewController, StoryboardLoadable {
         graph.delegate = self
         graph.graph = data
 
-        graph.lines.append(LineData(points: Data.points2, primaryColor: .blue, secondaryColor: .red))
+        // setup graph 1 from json data
+        guard let url = Bundle.main.url(forResource: "odds", withExtension: "json") else { return }
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
 
-        var count = Data.points2[Data.points2.count - 1].0
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+
+            if let data = data,
+                let model = try? JSONDecoder().decode(JsonData.self, from: data) {
+
+                let lineData = self.convertLineData(from: model)
+                DispatchQueue.main.async {
+                    self.graph.lines.append(lineData)
+                    self.startAdding()
+                }
+            }
+        }
+        task.resume()
+    }
+
+    func startAdding() {
+        // graph 1 random updating to fill to end
+        var count = graph.lines[0].points.last?.0 ?? 0
         Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
-            count += 1
-
-            self.graph.lines[0].points.append((CGFloat(count), CGFloat((-10...10).randomElement() ?? 0)))
+            count += 0.5
+            let last = Int(self.graph.lines[0].points.last?.1 ?? 0)
+            self.graph.lines[0].points.append((CGFloat(count),
+                                               CGFloat(((last - 1)...(last + 1)).randomElement() ?? 0)))
 
             if count == 60 {
                 timer.invalidate()
@@ -60,6 +80,21 @@ class ViewController: UIViewController, StoryboardLoadable {
     @objc
     func didTapGraph2() {
         graph2.lines.append(LineData(points: Data.points2, primaryColor: .green))
+    }
+
+    private func convertLineData(from model: JsonData) -> LineData {
+        var points: GraphPoints = []
+        for object in model.data {
+            if object.team == "top" {
+                let point = (CGFloat(object.time), CGFloat(object.odds - 50))
+                points.append(point)
+            } else {
+                let point = (CGFloat(object.time), CGFloat(-object.odds + 50))
+                points.append(point)
+            }
+        }
+
+        return LineData(points: points, primaryColor: .blue, secondaryColor: .red)
     }
 }
 

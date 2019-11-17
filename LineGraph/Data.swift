@@ -23,3 +23,13 @@ enum Data {
 
     static let rangeY = -50.0...50.0
 }
+
+struct Datum: Decodable {
+    let time: Double
+    let team: String
+    let odds: Double
+}
+
+struct JsonData: Decodable {
+    let data: [Datum]
+}

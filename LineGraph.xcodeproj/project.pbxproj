@@ -22,6 +22,7 @@
 		AC83D11923668B12008BC383 /* GraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11823668B12008BC383 /* GraphDelegate.swift */; };
 		AC83D11B23668B53008BC383 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11A23668B53008BC383 /* GraphData.swift */; };
 		AC83D11D23668DDB008BC383 /* TouchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11C23668DDB008BC383 /* TouchOverlay.swift */; };
+		AC8F44192381B2FC0014964E /* odds.json in Resources */ = {isa = PBXBuildFile; fileRef = AC8F44182381B2FC0014964E /* odds.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		AC83D11823668B12008BC383 /* GraphDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDelegate.swift; sourceTree = "<group>"; };
 		AC83D11A23668B53008BC383 /* GraphData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
 		AC83D11C23668DDB008BC383 /* TouchOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchOverlay.swift; sourceTree = "<group>"; };
+		AC8F44182381B2FC0014964E /* odds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = odds.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				AC83D0DE23652609008BC383 /* ViewController.swift */,
 				AC83D0E023652609008BC383 /* ViewController.storyboard */,
 				AC83D0EE23652AD2008BC383 /* Data.swift */,
+				AC8F44182381B2FC0014964E /* odds.json */,
 				AC83D0E32365260D008BC383 /* Assets.xcassets */,
 				AC83D0E52365260D008BC383 /* LaunchScreen.storyboard */,
 				AC83D0E82365260D008BC383 /* Info.plist */,
@@ -302,6 +305,7 @@
 				AC83D0E72365260D008BC383 /* LaunchScreen.storyboard in Resources */,
 				AC83D0E42365260D008BC383 /* Assets.xcassets in Resources */,
 				AC83D0E223652609008BC383 /* ViewController.storyboard in Resources */,
+				AC8F44192381B2FC0014964E /* odds.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

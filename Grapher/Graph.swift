@@ -129,7 +129,6 @@ public class Graph: UIView {
             // mask used to color line
             let mask = CAShapeLayer()
             mask.path = path.cgPath
-
             mask.fillColor = nil
             mask.strokeColor = line.primaryColor.cgColor
             mask.lineWidth = 2
