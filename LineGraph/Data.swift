@@ -19,11 +19,7 @@ enum Data {
                                       (10, 4), (11, -5), (13, -6), (14, -3), (16, -9), (17, -12),
                                       (19, -10), (20, -11), (21, -1), (23, 2), (24, -3), (26, 4), (27, 8)]
 
-    static let minX = 0.0
+    static let rangeX = 0.0...60.0
 
-    static let maxX = 60.0
-
-    static let minY = -50.0
-
-    static let maxY = 50.0
+    static let rangeY = -50.0...50.0
 }

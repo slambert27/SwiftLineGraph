@@ -19,7 +19,7 @@ public protocol GraphDelegate: AnyObject {
 }
 
 // provide empty defaults to make implementations optional
-extension GraphDelegate {
+public extension GraphDelegate {
 
     func didTouch(at points: GraphPoints, position: CGPoint) {}
 

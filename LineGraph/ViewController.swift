@@ -18,14 +18,13 @@ class ViewController: UIViewController, StoryboardLoadable {
     @IBOutlet weak var graph2: Graph!
     @IBOutlet weak var touchLabel2: UILabel!
     
-    var data = GraphData(xRange: Data.minX...Data.maxX,
-                         yRange: Data.minY...Data.maxY)
+    var data = GraphData(xRange: Data.rangeX, yRange: Data.rangeY)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         graph2.enableDragging = false
-        graph2.showDividerLines = false
+        graph2.dividerColor = .clear
         graph2.graph = data
         graph2.lines.append(LineData(points: Data.points, primaryColor: .black))
 

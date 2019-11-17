@@ -13,9 +13,6 @@ public class Graph: UIView {
 
     // MARK: - public style settings
 
-    /// A Boolean indicating whether to display horizontal lines at key y-values
-    public var showDividerLines = true
-
     /// A Boolean value indicating whether drag gesture interaction is enabled to view values over time
     public var enableDragging = true {
         didSet {
@@ -25,6 +22,13 @@ public class Graph: UIView {
                 overlay?.removeFromSuperview()
                 overlay = nil
             }
+        }
+    }
+
+    /// Color applied to the horizontal divider lines, set to .clear to hide
+    public var dividerColor = UIColor.lightGray {
+        didSet {
+            setNeedsDisplay()
         }
     }
 
@@ -40,7 +44,11 @@ public class Graph: UIView {
         }
     }
 
+    // MARK: - private components
+
     private var overlay: TouchOverlay?
+
+    // MARK: - init
 
     public init() {
         super.init(frame: .zero)
@@ -53,6 +61,8 @@ public class Graph: UIView {
         backgroundColor = .clear
         setupTouch()
     }
+
+    // MARK: - private methods
 
     private func setupTouch() {
         overlay = TouchOverlay()
@@ -70,14 +80,16 @@ public class Graph: UIView {
         ])
     }
 
-    private func drawHPath(in rect: CGRect, at yValue: CGFloat) {
+    private func drawDivider(in rect: CGRect, at yValue: CGFloat) {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: yValue))
         path.addLine(to: CGPoint(x: rect.width, y: yValue))
-        UIColor.lightGray.set()
+        dividerColor.set()
         path.setLineDash([2, 2], count: 2, phase: 0)
         path.stroke()
     }
+
+    // MARK: - public methods
 
     override public func draw(_ rect: CGRect) {
 
@@ -95,35 +107,26 @@ public class Graph: UIView {
         let zeroY: CGFloat = graph.maxY * scaleY
 
         // draw horizontal lines at min and max y values and 0 y value
-        if showDividerLines {
-            drawHPath(in: rect, at: zeroY)
-            drawHPath(in: rect, at: 0 + 0.5)
-            drawHPath(in: rect, at: rect.height - 0.5)
-        }
+        drawDivider(in: rect, at: zeroY)
+        // +/- 0.5 to keep line width inside view
+        drawDivider(in: rect, at: 0 + 0.5)
+        drawDivider(in: rect, at: rect.height - 0.5)
 
         // draw each line
         // line is the full plot for a single data set
         for line in lines {
+
             let points = line.points.sorted(by: { $0.0 < $1.0 })
 
             let path = UIBezierPath()
             // x-value - account for scale between data and screen size
             // y value - account for dynamic 0-point, inverted coordinates and scale
             path.move(to: CGPoint(x: points[0].0 * scaleX, y: zeroY - (points[0].1 * scaleY)))
-
             for index in 1..<points.count {
                 path.addLine(to: CGPoint(x: points[index].0 * scaleX, y: zeroY - (points[index].1 * scaleY)))
             }
 
-            let halfMask = CAShapeLayer()
-            halfMask.frame = CGRect(x: 0, y: 0, width: rect.width, height: rect.height / 2)
-            halfMask.masksToBounds = true
-            halfMask.path = path.cgPath
-
-            halfMask.fillColor = nil
-            halfMask.strokeColor = line.secondaryColor?.cgColor ?? line.primaryColor.cgColor
-            halfMask.lineWidth = 2
-
+            // mask used to color line
             let mask = CAShapeLayer()
             mask.path = path.cgPath
 
@@ -131,11 +134,26 @@ public class Graph: UIView {
             mask.strokeColor = line.primaryColor.cgColor
             mask.lineWidth = 2
 
-            self.layer.insertSublayer(mask, at: 0)
-            self.layer.insertSublayer(halfMask, at: 1)
+            self.layer.addSublayer(mask)
+
+            // mask used to color top portion of line, covers top area of graph down to y = 0
+            if let color = line.secondaryColor?.cgColor {
+                let halfMask = CAShapeLayer()
+                halfMask.frame = CGRect(x: 0, y: 0, width: rect.width, height: zeroY)
+                halfMask.masksToBounds = true
+                halfMask.path = path.cgPath
+
+                halfMask.fillColor = nil
+                halfMask.strokeColor = color
+                halfMask.lineWidth = 2
+
+                self.layer.addSublayer(halfMask)
+            }
         }
     }
 }
+
+// MARK: - GraphTouchDelegate
 
 extension Graph: GraphTouchDelegate {
     func dragged(in rect: CGRect, at point: CGPoint) {
