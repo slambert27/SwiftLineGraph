@@ -116,14 +116,14 @@ public class Graph: UIView {
         // line is the full plot for a single data set
         for line in lines {
 
-            let points = line.points.sorted(by: { $0.0 < $1.0 })
+            let points: GraphPoints = line.points.map { (CGFloat($0.x), CGFloat($0.y)) }
 
             let path = UIBezierPath()
             // x-value - account for scale between data and screen size
             // y value - account for dynamic 0-point, inverted coordinates and scale
-            path.move(to: CGPoint(x: points[0].0 * scaleX, y: zeroY - (points[0].1 * scaleY)))
+            path.move(to: CGPoint(x: points[0].x * scaleX, y: zeroY - (points[0].y * scaleY)))
             for index in 1..<points.count {
-                path.addLine(to: CGPoint(x: points[index].0 * scaleX, y: zeroY - (points[index].1 * scaleY)))
+                path.addLine(to: CGPoint(x: points[index].x * scaleX, y: zeroY - (points[index].y * scaleY)))
             }
 
             // mask used to color line
@@ -171,9 +171,9 @@ extension Graph: GraphTouchDelegate {
 
         let x = point.x
 
-        let dataX = x / scaleX
+        let dataX = Double(x / scaleX)
 
-        var points: GraphPoints = []
+        var points: [Point] = []
 
         for line in lines {
             let closestDataPoint = line.points.min { abs($0.0 - dataX) < abs($1.0 - dataX) }

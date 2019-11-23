@@ -61,8 +61,7 @@ class ViewController: UIViewController, StoryboardLoadable {
         Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
             count += 0.5
             let last = Int(self.graph.lines[0].points.last?.1 ?? 0)
-            self.graph.lines[0].points.append((CGFloat(count),
-                                               CGFloat(((last - 1)...(last + 1)).randomElement() ?? 0)))
+            self.graph.lines[0].points.append((count, Double(((last - 1)...(last + 1)).randomElement() ?? 0)))
 
             if count == 60 {
                 timer.invalidate()
@@ -83,13 +82,13 @@ class ViewController: UIViewController, StoryboardLoadable {
     }
 
     private func convertLineData(from model: JsonData) -> LineData {
-        var points: GraphPoints = []
+        var points: [Point] = []
         for object in model.data {
             if object.team == "top" {
-                let point = (CGFloat(object.time), CGFloat(object.odds - 50))
+                let point = (object.time, object.odds - 50)
                 points.append(point)
             } else {
-                let point = (CGFloat(object.time), CGFloat(-object.odds + 50))
+                let point = (object.time, -object.odds + 50)
                 points.append(point)
             }
         }
@@ -99,12 +98,13 @@ class ViewController: UIViewController, StoryboardLoadable {
 }
 
 extension ViewController: GraphDelegate {
-    func didTouch(at points: GraphPoints, position: CGPoint) {
+    func didTouch(at points: [Point], position: CGPoint) {
         touchLabel.numberOfLines = points.count
 
         var text = ""
         for index in 0..<points.count {
-            text.append("\(points[index].0), \(points[index].1)")
+            let value = points[index]
+            text.append("\(value.x), \(value.y)")
             if index < points.count - 1 {
                 text.append("\n")
             }

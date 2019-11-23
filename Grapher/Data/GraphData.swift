@@ -8,7 +8,12 @@
 
 import UIKit
 
-public typealias GraphPoints = [(CGFloat, CGFloat)]
+/// x, y point for line points
+public typealias Point = (x: Double, y: Double)
+
+// internal points using CGFloat
+typealias GraphPoint = (x: CGFloat, y: CGFloat)
+typealias GraphPoints = [GraphPoint]
 
 public struct GraphData {
 
@@ -25,13 +30,23 @@ public struct GraphData {
     }
 }
 
+/// Data used to represent a line in a graph
 public struct LineData {
 
-    public var points: GraphPoints
+    /// The Points that make up the line (should be pre-sorted by x-value)
+    public var points: [Point]
+    /// The top color for a two-color line or the only color for a single-color line
     let primaryColor: UIColor
+    /// The bottom color for a two-color line (nil if only one color)
     let secondaryColor: UIColor?
 
-    public init(points: GraphPoints, primaryColor: UIColor, secondaryColor: UIColor? = nil) {
+    /**
+     - parameters:
+        - points: The Points that make up the line (should be pre-sorted by x-value)
+        - primaryColor: The top color for a two-color line or the only color for a single-color line
+        - secondaryColor: The bottom color for a two-color line (nil if only one color)
+     */
+    public init(points: [Point], primaryColor: UIColor, secondaryColor: UIColor? = nil) {
         self.points = points
         self.primaryColor = primaryColor
         self.secondaryColor = secondaryColor
