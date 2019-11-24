@@ -104,7 +104,31 @@ extension ViewController: GraphDelegate {
         var text = ""
         for index in 0..<points.count {
             let value = points[index]
-            text.append("\(value.x), \(value.y)")
+
+            // time
+            let totalSeconds = value.x * 60
+
+            let minute = Int(totalSeconds / 60)
+            let second = Int(totalSeconds.truncatingRemainder(dividingBy: 60).rounded())
+
+            let time = "\(minute):\(String(format: "%02d", second))"
+
+            // odds
+            let odds: Double
+            let team: String
+
+            if value.y < 0 {
+                odds = -value.y + 50
+                team = "BOT"
+            } else if value.y == 0 {
+                odds = 50
+                team = "EVEN"
+            } else {
+                odds = value.y + 50
+                team = "TOP"
+            }
+
+            text.append("\(time), \(team): \(odds)%")
             if index < points.count - 1 {
                 text.append("\n")
             }
