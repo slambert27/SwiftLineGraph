@@ -51,6 +51,9 @@ public class Graph: UIView {
 
     private var overlay: TouchOverlay?
 
+    // keep track of mask layers, remove on draw to avoid piling them up
+    private var currentLayers: [CALayer] = []
+
     // for storyboard display
     private let points: [Point] = [(0, -10), (2, -17), (3, -14), (5, -15), (6, -14), (8, -16), (9, -9),
                                    (10, -11), (11, -10), (13, -8), (14, -7), (16, -15), (17, -11),
@@ -132,6 +135,12 @@ public class Graph: UIView {
         drawDivider(in: rect, at: 0 + 0.5)
         drawDivider(in: rect, at: rect.height - 0.5)
 
+        // manage layer count
+        for layer in currentLayers {
+            layer.removeFromSuperlayer()
+        }
+        currentLayers.removeAll()
+
         // draw each line
         // line is the full plot for a single data set
         for line in lines {
@@ -153,6 +162,7 @@ public class Graph: UIView {
             mask.strokeColor = line.primaryColor.cgColor
             mask.lineWidth = 2
 
+            currentLayers.append(mask)
             self.layer.addSublayer(mask)
 
             // mask used to color top portion of line, covers top area of graph down to y = 0
@@ -166,6 +176,7 @@ public class Graph: UIView {
                 halfMask.strokeColor = color
                 halfMask.lineWidth = 2
 
+                currentLayers.append(halfMask)
                 self.layer.addSublayer(halfMask)
             }
         }
