@@ -24,8 +24,6 @@ class ViewController: UIViewController, StoryboardLoadable {
         super.viewDidLoad()
 
         // graph 2 - 2 lines, tap to add second
-        graph2.enableDragging = false
-        graph2.dividerColor = .clear
         graph2.graph = data
         graph2.lines.append(LineData(points: Data.points, primaryColor: .black))
 

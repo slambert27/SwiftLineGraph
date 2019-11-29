@@ -9,12 +9,14 @@
 import UIKit
 
 /// Graph that can be added
+@IBDesignable
 public class Graph: UIView {
 
     // MARK: - public style settings
 
     /// A Boolean value indicating whether drag gesture interaction is enabled to view values over time
-    public var enableDragging = true {
+    @IBInspectable
+    public var enableDragging: Bool = true {
         didSet {
             if enableDragging {
                 setupTouch()
@@ -26,7 +28,8 @@ public class Graph: UIView {
     }
 
     /// Color applied to the horizontal divider lines, set to .clear to hide
-    public var dividerColor = UIColor.lightGray {
+    @IBInspectable
+    public var dividerColor: UIColor = UIColor.lightGray {
         didSet {
             setNeedsDisplay()
         }
@@ -48,7 +51,18 @@ public class Graph: UIView {
 
     private var overlay: TouchOverlay?
 
+    // for storyboard display
+    private let points: [Point] = [(0, -10), (2, -17), (3, -14), (5, -15), (6, -14), (8, -16), (9, -9),
+                                   (10, -11), (11, -10), (13, -8), (14, -7), (16, -15), (17, -11),
+                                   (19, -8), (20, 8), (21, -5), (23, 1), (24, -1), (26, -3), (27, -2)]
+
     // MARK: - init
+
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .clear
+        setupTouch()
+    }
 
     public init() {
         super.init(frame: .zero)
@@ -60,6 +74,12 @@ public class Graph: UIView {
         super.init(coder: coder)
         backgroundColor = .clear
         setupTouch()
+    }
+
+    override public func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        graph = GraphData(xRange: 0...60, yRange: -50...50)
+        lines = [LineData(points: points, primaryColor: .black)]
     }
 
     // MARK: - private methods
