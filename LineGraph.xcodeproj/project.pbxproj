@@ -20,7 +20,7 @@
 		AC83D10E236689FF008BC383 /* Grapher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC83D0F7236689FE008BC383 /* Grapher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AC83D11523668AD6008BC383 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D0F02365641E008BC383 /* Graph.swift */; };
 		AC83D11923668B12008BC383 /* GraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11823668B12008BC383 /* GraphDelegate.swift */; };
-		AC83D11B23668B53008BC383 /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11A23668B53008BC383 /* GraphData.swift */; };
+		AC83D11B23668B53008BC383 /* GraphSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11A23668B53008BC383 /* GraphSize.swift */; };
 		AC83D11D23668DDB008BC383 /* TouchOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83D11C23668DDB008BC383 /* TouchOverlay.swift */; };
 		AC8F44192381B2FC0014964E /* odds.json in Resources */ = {isa = PBXBuildFile; fileRef = AC8F44182381B2FC0014964E /* odds.json */; };
 /* End PBXBuildFile section */
@@ -80,7 +80,7 @@
 		AC83D106236689FF008BC383 /* GrapherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrapherTests.swift; sourceTree = "<group>"; };
 		AC83D108236689FF008BC383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC83D11823668B12008BC383 /* GraphDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDelegate.swift; sourceTree = "<group>"; };
-		AC83D11A23668B53008BC383 /* GraphData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
+		AC83D11A23668B53008BC383 /* GraphSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphSize.swift; sourceTree = "<group>"; };
 		AC83D11C23668DDB008BC383 /* TouchOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchOverlay.swift; sourceTree = "<group>"; };
 		AC8F44182381B2FC0014964E /* odds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = odds.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,7 +180,7 @@
 		AC83D11723668B06008BC383 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				AC83D11A23668B53008BC383 /* GraphData.swift */,
+				AC83D11A23668B53008BC383 /* GraphSize.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -342,7 +342,7 @@
 			files = (
 				AC83D11523668AD6008BC383 /* Graph.swift in Sources */,
 				AC83D11D23668DDB008BC383 /* TouchOverlay.swift in Sources */,
-				AC83D11B23668B53008BC383 /* GraphData.swift in Sources */,
+				AC83D11B23668B53008BC383 /* GraphSize.swift in Sources */,
 				AC83D11923668B12008BC383 /* GraphDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

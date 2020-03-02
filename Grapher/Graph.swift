@@ -39,7 +39,7 @@ public class Graph: UIView {
 
     public weak var delegate: GraphDelegate?
 
-    public var graph: GraphData?
+    public var graph: GraphSize?
 
     public var lines: [LineData] = [] {
         didSet {
@@ -81,7 +81,7 @@ public class Graph: UIView {
 
     override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
-        graph = GraphData(xRange: 0...60, yRange: -50...50)
+        graph = GraphSize(xRange: 0...60, yRange: -50...50)
         lines = [LineData(points: points, primaryColor: .black)]
     }
 
@@ -136,9 +136,7 @@ public class Graph: UIView {
         drawDivider(in: rect, at: rect.height - 0.5)
 
         // manage layer count
-        for layer in currentLayers {
-            layer.removeFromSuperlayer()
-        }
+        currentLayers.forEach { $0.removeFromSuperlayer() }
         currentLayers.removeAll()
 
         // draw each line
@@ -180,7 +178,6 @@ public class Graph: UIView {
                 self.layer.addSublayer(halfMask)
             }
         }
-        // TODO: clean out sublayers
     }
 
     /// Set color of the draggable tracking line

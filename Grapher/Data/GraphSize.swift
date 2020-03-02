@@ -1,5 +1,5 @@
 //
-//  GraphData.swift
+//  GraphSize.swift
 //  Grapher
 //
 //  Created by Sam Lambert on 10/27/19.
@@ -8,14 +8,15 @@
 
 import UIKit
 
-/// x, y point for line points
+/// x, y coordinates that compose graph lines
 public typealias Point = (x: Double, y: Double)
 
 // internal points using CGFloat
 typealias GraphPoint = (x: CGFloat, y: CGFloat)
 typealias GraphPoints = [GraphPoint]
 
-public struct GraphData {
+/// Size of the graph along x and y axes
+public struct GraphSize {
 
     let minX: CGFloat
     let minY: CGFloat

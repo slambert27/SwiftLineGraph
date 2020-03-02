@@ -18,13 +18,13 @@ class ViewController: UIViewController, StoryboardLoadable {
     @IBOutlet weak var graph2: Graph!
     @IBOutlet weak var touchLabel2: UILabel!
     
-    var data = GraphData(xRange: Data.rangeX, yRange: Data.rangeY)
+    var size = GraphSize(xRange: Data.rangeX, yRange: Data.rangeY)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // graph 2 - 2 lines, tap to add second
-        graph2.graph = data
+        graph2.graph = size
         graph2.lines.append(LineData(points: Data.points, primaryColor: .black))
 
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapGraph2))
@@ -32,7 +32,7 @@ class ViewController: UIViewController, StoryboardLoadable {
 
         // graph 1 - 1 line, 2 colors, delegate for touch interaction, updating points
         graph.delegate = self
-        graph.graph = data
+        graph.graph = size
 
         // setup graph 1 from json data
         guard let url = Bundle.main.url(forResource: "odds", withExtension: "json") else { return }

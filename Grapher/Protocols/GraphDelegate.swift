@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Delegate that receives user events from a Graph
 public protocol GraphDelegate: AnyObject {
 
     /// called after a touch or drag event by user
@@ -16,7 +17,7 @@ public protocol GraphDelegate: AnyObject {
     ///     - position: screen position of the touch
     func didTouch(at points: [Point], position: CGPoint)
 
-    /// user has is no longer interacting with graph
+    /// User is no longer interacting with graph
     func didStopTouching()
 }
 
